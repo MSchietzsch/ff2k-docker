@@ -1,0 +1,53 @@
+{% extends "site_base.html" %} {% load i18n %} {% block head_title %}{% trans "Signup" %}{% endblock %} {% block content %}
+<div class="col-md-auto">
+    <br>
+    <div class="card w-50 mx-auto">
+        <h4 class="card-header">Signup</h4>
+        <div class="card-body">
+            <h4 class="card-title">Please register</h4>
+            <p class="card-text">KHAGKSHGDKHLJA</p>
+
+            <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                <div class="form-group">
+                    <label for="id_email">E-mail:</label>
+                    <input class="form-control" type="email" name="email" autofocus="autofocus" required id="id_email" placeholder="E-mail address" />
+                </div>
+                <div class="form-group">
+                    <label for="id_username">Username:</label>
+                    <input class="form-control" type="text" name="username" required id="id_username" minlength="1" maxlength="150"
+                        placeholder="Username" />
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Password:</label>
+                    <input class="form-control" type="password" name="password1" required id="id_password1" placeholder="Password" />
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Password (again):</label>
+                    <input class="form-control" type="password" name="password2" required id="id_password2" placeholder="Password (again)" />
+                </div>
+
+                <div class="form-group">
+                    <a data-toggle="collapse" data-parent="#exampleAccordion" href="#exampleAccordion1" aria-expanded="false" aria-controls="exampleAccordion1">
+                        Optional information
+                    </a><br>
+                    <div id="exampleAccordion1" class="collapse" role="tabpanel">
+                        <label for="inputCountry">Country</label>
+                        <input type="text" class="form-control" id="inputCountry">
+                    </div>
+                </div>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

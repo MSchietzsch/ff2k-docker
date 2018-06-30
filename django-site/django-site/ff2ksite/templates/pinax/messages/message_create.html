@@ -1,0 +1,13 @@
+{% load bootstrap4 %}
+<div class="pinax-messages-create-container">
+    <h2>New Message</h2>
+
+    <form class="comment-form" action="{% url "pinax_messages:message_create" %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <div class="form-actions">
+            <a href="{% url "pinax_messages:inbox" %}" class="cancel">Cancel</a>
+            <button>Send</button>
+        </div>
+    </form>
+</div>

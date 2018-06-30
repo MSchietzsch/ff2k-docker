@@ -1,0 +1,53 @@
+{% extends "site_base.html" %} {% block head_title %} {% endblock %} {% load static %} {% block head_extra %} {% endblock%}
+ {% block content %}
+<br>
+<br>
+{% if user.is_authenticated == False %} {% include "ff2ksite/access_denied.html" %}
+<h3>Access denied!</h3>
+{% else %} 
+<h1>{{ story.story_title }}</h1>
+<div class="row col-sm">
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col">
+                <div class="list-group" id="myTabAD">
+                    <a href="/authorsdesk/#stories" class="list-group-item list-group-item-action"><< Stories</a>
+                    <a data-toggle="tab" href="#Summary" class="list-group-item list-group-item-action active">
+                            Summary
+                    </a>
+                    <a data-toggle="tab" href="#Chapters" class="list-group-item list-group-item-action">
+                            Chapters
+                    </a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="Summary">
+                            Summary
+                    </div>
+                    <div class="tab-pane fade" id="Chapters">
+                            {% if chapter_list %}
+                            <hr>
+                            <h5>Chapter List:</h5>
+                            <ol>
+                                {% for chapter in chapter_list %}
+                                <li>
+                                    <h5>
+                                        <a href="#">{{ chapter }}</a>
+                                    </h5>
+                                </li>
+                                {% endfor %} 
+                            </ol>
+                                {% else %}
+                                <p>No Chapters are available.</p>
+                                <a href="#">Create new chapter</a>                                
+                                {% endif %} 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% endblock %}

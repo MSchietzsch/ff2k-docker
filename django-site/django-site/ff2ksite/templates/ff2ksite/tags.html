@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+{% block content %}
+
+<br>
+<h3>Tags</h3>
+<div>Klick on the Tags to get more infos</div>
+<br>
+<!-- Table -->
+<table class="table" >
+    <tbody><tr>
+        {% for tag in tags.all %}
+        <td>
+            <a tabindex="0" class="btn btn-secondary" role="button" data-toggle="popover" data-trigger="focus" title="{{ tag }} description" data-content="{{ tag.tag_descr }}">{{ tag }}</a>
+        </td>
+        {% if not forloop.last and forloop.counter|divisibleby:4 %}
+    </tr><tr>
+        {% endif %}
+        {% endfor %}
+    </tr></tbody>
+</table>
+<script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
+</script>
+{% endblock %}

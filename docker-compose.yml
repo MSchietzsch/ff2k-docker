@@ -1,0 +1,202 @@
+version: '2'
+
+services:
+
+  elasticsearch:
+    build:
+      context: elasticsearch/
+    container_name: ff2k_elasticsearch
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ff2k-el-data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+      discovery.type: zen
+    networks:
+      - ff2k
+
+  elasticsearch2:
+    build:
+      context: elasticsearch/
+    container_name: ff2k_elasticsearch2
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ff2k-el-data2:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+      discovery.type: zen
+      discovery.zen.ping.unicast.hosts: elasticsearch
+    networks:
+      - ff2k
+
+  elasticsearch3:
+    build:
+      context: elasticsearch/
+    container_name: ff2k_elasticsearch3
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ff2k-el-data3:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+      discovery.type: zen
+      discovery.zen.ping.unicast.hosts: elasticsearch
+    networks:
+      - ff2k
+
+  logstash:
+    build:
+      context: logstash/
+    container_name: ff2k_logstash    
+    volumes:
+      - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    ports:
+      - "5000:5000"
+      - "5959:5959"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - ff2k
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    build:
+      context: kibana/
+    container_name: ff2k_kibana    
+    volumes:
+      - ./kibana/config/:/usr/share/kibana/config:ro
+    ports:
+      - "5601:5601"
+    networks:
+      - ff2k
+    depends_on:
+      - elasticsearch
+
+  mysql:
+    build:
+      context: mysql/
+    container_name: ff2k_mysql
+    volumes:
+      - ./mysql/config/my.cnf:/etc/mysql/my.cnf:ro
+      - ff2k-mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=ff2kdb
+      - MYSQL_USER=ff2k
+      - MYSQL_PASSWORD=somepass
+      - MYSQL_ROOT_PASSWORD=some_password
+    ports:
+      - "3306:3306"
+    networks:
+      - ff2k
+
+  memcached1:
+    image:  memcached:alpine
+    hostname: memcached1
+    container_name: ff2k_memcached1
+    command: memcached
+    networks:
+      - ff2k
+
+  memcached2:
+    image:  memcached:alpine
+    hostname: memcached2    
+    container_name: ff2k_memcached2
+    command: memcached
+    networks:
+      - ff2k
+
+  web:
+    build:
+      context: django-site/
+    container_name: ff2k_web1    
+    depends_on:
+      - mysql
+      - elasticsearch
+    environment:
+      - DJANGO_ENVIRONMENT=docker_compose
+    command: >
+      sh -c "sleep 40 &&
+               python manage.py makemigrations ff2ksite &&
+               python manage.py makemigrations &&               
+               python manage.py migrate &&               
+               python manage.py loaddata ff2k/fixtures/sites.json &&
+               python manage.py loaddata ff2k/fixtures/users.json &&
+               python manage.py loaddata ff2ksite/fixtures/ff2ksite_data.json &&
+               python manage.py collectstatic --noinput &&
+               daphne -e ssl:8443:privateKey=privkey.pem:certKey=fullchain.pem ff2k.asgi:application -v 1"
+    networks:
+      - ff2k
+      
+  web2:
+    image: ff2kdocker_web:latest
+    container_name: ff2k_web2
+    depends_on:
+      - mysql
+      - elasticsearch
+    environment:
+      - DJANGO_ENVIRONMENT=docker_compose
+    command: >
+      sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=fullchain.pem ff2k.asgi:application -v 1"
+    networks:
+      - ff2k
+
+  web3:
+    image: ff2kdocker_web:latest
+    container_name: ff2k_web3
+    depends_on:
+      - mysql
+      - elasticsearch
+    environment:
+      - DJANGO_ENVIRONMENT=docker_compose
+    command: >
+      sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=fullchain.pem ff2k.asgi:application -v 1"
+    networks:
+      - ff2k
+
+  web4:
+    image: ff2kdocker_web:latest
+    container_name: ff2k_web4
+    depends_on:
+      - mysql
+      - elasticsearch
+    environment:
+      - DJANGO_ENVIRONMENT=docker_compose
+    command: >
+      sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=fullchain.pem ff2k.asgi:application -v 1"
+    networks:
+      - ff2k
+
+  haproxy:
+    build:
+      context: haproxy/
+    container_name: ff2k_HA
+    depends_on:
+      - web
+      - logstash
+    volumes:
+      - ./haproxy/config/:/usr/local/etc/haproxy:ro
+    ports:
+      - "8181:8181"
+      - "80:80"
+      - "443:443"
+    networks:
+      - ff2k
+
+networks:
+
+  ff2k:
+    driver: bridge
+
+volumes:
+  ff2k-el-data:
+  ff2k-el-data2:
+  ff2k-el-data3:
+  ff2k-mysql-data:
+  

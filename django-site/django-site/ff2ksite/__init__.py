@@ -1,0 +1,1 @@
+default_app_config = 'ff2ksite.apps.Ff2KsiteConfig'

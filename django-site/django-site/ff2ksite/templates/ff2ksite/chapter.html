@@ -1,0 +1,107 @@
+{% extends "site_base.html" %} 
+{% block head_extra %} {% load static %}
+{% endblock %} 
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/f/{{ story.fandom.fandom_short }}">{{ story.fandom }}</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/read/{{ story.auto_uid }}">{{ story.story_title }}</a>
+        </li>
+        <li class="breadcrumb-item active">{{ chapter.chapter_title }}</li>
+    </ol>
+</nav>
+<div class="col-md-auto">
+    <h3>{{ chapter.chapter_title }}</h3>
+    <div class="row">
+        <div class="col-5">
+            <select data-placeholder="{{ chapter }}" class="chosen-select" tabindex="2" id="select1" onchange="location = this.value;">
+                <option value=""></option>
+                {% for chapter in chapter_list %}
+                <option value="/read/{{ story.auto_uid }}/{{ chapter.chapter_number }}">{{ chapter }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <hr>
+    {% if user.is_authenticated == False and story.story_is_save == False %} {% include "ff2ksite/access_denied.html" %}
+    <h2>DENIED</h2>
+    {% else %}
+    <div id="chapview">{{ chapter.chapter_text|safe }}</div>
+    <p>&nbsp;</p>
+    <hr> {% endif %}
+
+   
+    {% if chapters.has_other_pages %}
+    <ul class="pagination">
+      {% if chapters.has_previous %}
+        <li><a href="?page={{ chapters.previous_page_number }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&laquo;</span></li>
+      {% endif %}
+      {% for i in chapters.paginator.page_range %}
+        {% if chapters.number == i %}
+          <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+        {% else %}
+          <li><a href="?page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      {% if chapters.has_next %}
+        <li><a href="?page={{ chapters.next_page_number }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled"><span>&raquo;</span></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+
+
+<br>
+<br>
+<br>
+
+
+<div class="pagination">
+    <span class="step-links">
+        {% if chapters.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ chapters.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ chapters.number }} of {{ chapters.paginator.num_pages }}.
+        </span>
+
+        {% if chapters.has_next %}
+            <a href="?page={{ chapters.next_page_number }}">next</a>
+            <a href="?page={{ chapters.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+        {% if chapters.has_previous %}          
+          <li class="page-item">
+            <a class="page-link" href="{{ chapter_list.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+              <span class="sr-only">Previous</span>
+            </a>
+          </li>
+        {% endif %}
+          
+          {% for chapter in chapter_list %}
+          <li class="page-item"><a class="page-link" href="{{ chapter.chapter_number }}">{{ chapter.chapter_number }}</a></li>
+          {% endfor %}
+          <li class="page-item">
+            <a class="page-link" href="{{ chapter_list.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+              <span class="sr-only">Next</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+</div>
+{% endblock %}

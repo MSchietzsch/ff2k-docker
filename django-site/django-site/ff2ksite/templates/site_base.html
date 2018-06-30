@@ -1,0 +1,116 @@
+{% load static %} {% load account %}
+<!doctype html>
+<html lang="en">
+<head>
+  <title>{% block title %}FF 2k{% endblock %}</title>
+  {% block head_extra %}{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="robots" content="noarchive" />
+  <script>
+  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+  ga('create', 'UA-113376276-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+  <script async src='https://www.google-analytics.com/analytics.js'></script>
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
+  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "chosen/chosen.min.css" %}">
+  <script src="{% static "jquery/jquery-3.3.1.slim.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "chosen/chosen.jquery.min.js" %}"></script>
+  <script src="{% static "fontawesome/js/fontawesome.min.js" %}"></script>
+  <script>
+    $(function () {
+      $('.chosen-select').chosen();
+      $('.chosen-select-deselect').chosen({ allow_single_deselect: true });
+    })
+  </script>
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSearch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Fandoms
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSearch">
+            {% for fdom in Fandom.all %}
+            <a class="dropdown-item" href="/f/{{ fdom.fandom_name }}">{{ fandom.fandom_name }}</a>
+            {% endfor %}
+          </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/search">Search</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAbout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              About
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAbout">
+              <a class="dropdown-item" href="/about">About Us</a>
+              <a class="dropdown-item" href="/privacy">Privacy Policy</a>
+              <a class="dropdown-item" href="/disclaimer">Disclaimer</a>
+            </div>
+          </li>
+      </ul>
+    </div>
+    {% if user.is_authenticated == False %}
+    <form class="form-inline" action="{% url 'account_login' %}" method="post">
+      {% csrf_token %}
+      <div class="p-1 mb-2 mr-sm-2 mb-sm-0">
+        <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+        <label class="sr-only" for="id_login_f"></label>
+        <input class="form-control p-1 mb-2 mr-sm-2 mb-sm-0" id="id_login_f" name="login" placeholder="Username or e-mail" type="text"
+          required />
+        <label class="sr-only" for="id_password_f"></label>
+        <input class="form-control p-1" id="id_password_f" name="password" placeholder="Password" type="password" required />
+        <button type="submit" class="btn btn-primary btn-sm">Login</button>
+      <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#RegisterModal">Register</button>
+      </div>      
+    </form>
+    {% else %}
+    <form class="form-inline" action="{% url 'account_logout' %}" method="post">
+      {% csrf_token %}
+      <div class="p-1 mb-2 mr-sm-2 mb-sm-0">
+        {% if request.path == '/profile/' %}
+        <button type="button" class="btn btn-outline-success btn-sm active" onClick="javascript:history.go(-1);">{% user_display user %}</button>
+        {% else %}  
+        <a class="btn btn-outline-success btn-sm" href="/profile" role="button">{% user_display user %}</a>
+        {% endif %}
+        <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
+      </div>
+    {% endif %}
+  </form>
+  </nav>
+  {% if user.is_authenticated == False %}{% include "ff2ksite/login_modal.html" %}{% include "ff2ksite/register_modal.html" %}{% endif %} {% block content %}{% endblock %}
+  <!-- ===================================== START FOOTER ===================================== -->
+</body>
+<footer>
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+window.addEventListener("load", function(){
+window.cookieconsent.initialise({
+  "palette": {
+    "popup": {
+      "background": "#3e3f3a"
+    },
+    "button": {
+      "background": "#284A6C"
+    }
+  },
+  "theme": "classic",
+  "content": {
+    "href": "/privacy"
+  }
+})});
+</script>
+</footer>
+</html>

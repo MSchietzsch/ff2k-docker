@@ -1,0 +1,49 @@
+{% extends "site_base.html" %} {% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/f/{{ story.fandom.fandom_short }}">{{ story.fandom }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ story.story_title }}</li>
+    </ol>
+</nav>
+{% if user.is_authenticated == False and story.story_is_save == False %} {% include "ff2ksite/access_denied.html" %}
+<h3>Access denied!</h3>
+{% else %} {% endif %}
+<div class="col-md-auto">
+    <div>
+        <h3>{{ story.story_title }}</h3>
+        <p>By <a href="/p/{{ story.author }}/"><cite title="Source Title">{{ story.author }}</cite></a></p>
+        <p></p>
+    </div>
+    <div class="media">
+        <img class="align-self-start mr-3" src="/img/There are 3 types of people in exams.jpg" alt="Generic placeholder image">
+        <div class="media-body">
+            <h4 class="mt-0">Description</h4>
+            {{ story.story_description|safe }}
+        </div>
+    </div>
+    <div>
+        <em>Tags: {% for tag in story.story_tags.all %}
+        <a href="/tags/">{{ tag }}</a> {% endfor %}</em>
+    </div>
+    <!-- HR -->
+    {% if chapter_list %}
+    <hr>
+    <h5>Chapter List:</h5>
+    <!-- Ordered List -->
+    <ol>
+        {% for chapter in chapter_list %}
+        <li>
+            <h5>
+                <a href="/read/{{ story.auto_uid }}/{{ chapter.chapter_number  }}">{{ chapter }}</a>
+            </h5>
+        </li>
+    
+        {% endfor %} 
+    </ol>
+        {% else %}
+        <p>No Chapters are available.</p>
+        {% endif %} 
+</div>
+{% endblock %}

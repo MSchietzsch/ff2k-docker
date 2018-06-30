@@ -1,0 +1,10 @@
+[
+    {
+        "model": "sites.site",
+        "pk": 1,
+        "fields": {
+            "domain": "ff2k.net",
+            "name": "FF2k"
+        }
+    }
+]

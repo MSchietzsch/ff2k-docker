@@ -1,0 +1,23 @@
+<div class="row col-sm">
+    <ol>
+        {% for story in story_list %}
+        <li>
+            <div class="card">
+                <div class="card-header">
+                    <a href="/read/{{ story.auto_uid }}/">{{ story.story_title }}</a>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ story.story_description|safe|truncatewords:120   }}</p>
+                    <small>
+                        <div class="row">
+                            <div class="col-auto mr-auto">Last updated:{{ story.story_last_modified }}</div>
+                            <div class="col-auto">Author:
+                                <a href="/p/{{ story.author }}/">{{ story.author }}</div>
+                        </div>
+                    </small>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+</div>

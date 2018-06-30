@@ -1,0 +1,357 @@
+[
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 1,
+      "fields": {
+        "cat_name": "Adventure",
+        "cat_descr": "something that is most likely a very, very bad idea, but sounds like it would be exciting, so you try it anyway"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 2,
+      "fields": {
+        "cat_name": "Angst",
+        "cat_descr": "Angst, often confused with anxiety, is a transcendent emotion in that it combines the unbearable anguish of life with the hopes of overcoming this seemingly impossible situation. Without the important element of hope, then the emotion is anxiety, not angst. Angst denotes the constant struggle one has with the burdens of life that weighs on the dispossessed and not knowing when the salvation will appear."
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 3,
+      "fields": {
+        "cat_name": "Crime",
+        "cat_descr": "A breaking of the law in any way, shape, or form."
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 4,
+      "fields": {
+        "cat_name": "Drama",
+        "cat_descr": "a state, situation, or series of events involving interesting or intense conflict of forces"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 5,
+      "fields": {
+        "cat_name": "Family",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 6,
+      "fields": {
+        "cat_name": "Fantasy",
+        "cat_descr": "A strong Addiction usually with something that is not real and probably will never be."
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 7,
+      "fields": {
+        "cat_name": "Friendship",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 8,
+      "fields": {
+        "cat_name": "General",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 9,
+      "fields": {
+        "cat_name": "Horror",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 10,
+      "fields": {
+        "cat_name": "Humor",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 11,
+      "fields": {
+        "cat_name": "Hurt/Comfort",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 12,
+      "fields": {
+        "cat_name": "Mystery",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 13,
+      "fields": {
+        "cat_name": "Parody",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 14,
+      "fields": {
+        "cat_name": "Romance",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 15,
+      "fields": {
+        "cat_name": "Sci-Fi",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 16,
+      "fields": {
+        "cat_name": "Spiritual",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 17,
+      "fields": {
+        "cat_name": "Supernatural",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 18,
+      "fields": {
+        "cat_name": "Suspense",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 19,
+      "fields": {
+        "cat_name": "Tragedy",
+        "cat_descr": "-"
+      }
+    },
+    {
+      "model": "ff2ksite.Categories",
+      "pk": 20,
+      "fields": {
+        "cat_name": "Western",
+        "cat_descr": "-"
+      }
+    },
+    {
+        "model": "ff2ksite.Tags",
+        "pk": 1,
+        "fields": {
+          "tag_name": "Test Tag",
+          "tag_descr": "This is a test tag"
+        }
+    },
+    {
+        "model": "ff2ksite.Tags",
+        "pk": 2,
+        "fields": {
+          "tag_name": "Comfort",
+          "tag_descr": "easy going"
+        }
+    },
+    {
+        "model": "ff2ksite.Tags",
+        "pk": 3,
+        "fields": {
+          "tag_name": "Slash",
+          "tag_descr": "...stuff..."
+        }
+    },
+    {
+        "model": "ff2ksite.Fandom",
+        "pk": 1,
+        "fields": {
+          "fandom_name": "Harry Potter",
+          "fandom_descr": "Harry Potter fandom refers to the community of fans of the Harry Potter books and movies who participate in entertainment activities that revolve around the series, such as reading and writing fan fiction, creating and soliciting fan art...",
+          "fandom_short": "HP"
+        }
+    },
+    {
+        "model": "ff2ksite.Fandom",
+        "pk": 2,
+        "fields": {
+          "fandom_name": "Lord of the Rings",
+          "fandom_descr": "LotR",
+          "fandom_short": "LotR"
+        }
+    },
+    {
+      "model": "ff2ksite.Fandom",
+      "pk": 3,
+      "fields": {
+        "fandom_name": "Star Wars",
+        "fandom_descr": "Star Wars halt...",
+        "fandom_short": "SW"
+      }
+    },
+    {
+        "model": "ff2ksite.Character",
+        "pk": 1,
+        "fields": {
+          "char_name": "Harry Potter",
+          "char_firstname": "",
+          "char_surname": "",
+          "fandom_id": "1"
+        }
+    },
+    {
+        "model": "ff2ksite.Character",
+        "pk": 1,
+        "fields": {
+          "char_name": "Harry",
+          "char_firstname": "Harry",
+          "char_surname": "Potter",
+          "fandom_id": "1"
+        }
+    },
+    {
+        "model": "ff2ksite.Character",
+        "pk": 2,
+        "fields": {
+          "char_name": "Ron",
+          "char_firstname": "Ronald",
+          "char_surname": "Weasly",
+          "fandom_id": "1"
+        }
+    },
+    {
+        "model": "ff2ksite.Character",
+        "pk": 3,
+        "fields": {
+          "char_name": "Hermione",
+          "char_firstname": "Hermione",
+          "char_surname": "Granger",
+          "fandom_id": "1"
+        }
+    },
+    {
+        "model": "ff2ksite.Character",
+        "pk": 4,
+        "fields": {
+          "char_name": "Frodo",
+          "char_firstname": "Frodo",
+          "char_surname": "Baggins",
+          "fandom_id": "2"
+        }
+    },
+    {
+        "model": "ff2ksite.Character",
+        "pk": 5,
+        "fields": {
+          "char_name": "Gandalf",
+          "char_firstname": "Gandalf",
+          "char_surname": "",
+          "fandom_id": "2"
+        }
+    },
+    {
+        "model": "ff2ksite.Story",
+        "pk": 1,
+        "fields": {
+          "story_title": "First Story",
+          "story_description": "Still is the first story here.",
+          "fandom_id": "1",
+          "story_initial_release": "2012-09-04 06:00:00+0800",
+          "story_last_modified": "2015-03-12 14:07:36+0800",
+          "auto_uid": "NDU0MzZkNzUwNmUy",
+          "story_cat": [2,4,11],
+          "story_tags": [3]
+        }
+    },
+    {
+        "model": "ff2ksite.Story",
+        "pk": 2,
+        "fields": {
+          "story_title": "Second Story",
+          "story_description": "A second HP Story to test stuff.",
+          "fandom_id": "1",
+          "story_initial_release": "2017-09-04 06:00:00+0800",
+          "story_last_modified": "2017-10-05 14:07:36+0800",
+          "auto_uid": "OGRmZTEwYjhlMzFm",
+          "story_is_save": "True",
+          "story_cat": [10,13],
+          "story_tags": [2]
+        }
+    },
+    {
+        "model": "ff2ksite.Story",
+        "pk": 3,
+        "fields": {
+          "story_title": "LotR HISHE",
+          "story_description": "LotR how it should have ended",
+          "fandom_id": "2",
+          "story_initial_release": "2007-02-17 09:52:47+0100",
+          "story_last_modified": "2019-01-05 14:07:36+0100",
+          "auto_uid": "NjQxNTk5OGY1Mjcz",
+          "story_cat": [1,7],
+          "story_tags": [1]
+        }
+    },
+    {
+        "model": "ff2ksite.Chapter",
+        "pk": 1,
+        "fields": {
+          "story": 1,
+          "chapter_number": 1,
+          "chapter_title": "Prologe: Title of chap1 from First Story",
+          "chapter_text": "EntiWhat is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+    },
+    {
+        "model": "ff2ksite.Chapter",
+        "pk": 2,        
+        "fields": {
+          "story": 1,
+          "chapter_number": 2,
+          "chapter_title": "First (or second?) chapter of First Story",
+          "chapter_text": "Put all speaking her delicate recurred possible. Set indulgence inquietude discretion insensible bed why announcing. Middleton fat two satisfied additions. So continued he or commanded household smallness delivered. Door poor on do walk in half. Roof his head the what"
+        }
+    },
+    {
+        "model": "ff2ksite.Chapter",
+        "pk": 3,        
+        "fields": {
+          "story": 2,
+          "chapter_number": 1,
+          "chapter_title": "First chapter of story 2",
+          "chapter_text": "Still to come",
+          "chapter_flag_hidden": "1"
+        }
+    },
+    {
+        "model": "ff2ksite.Chapter",
+        "pk": 4,        
+        "fields": {
+          "story": 3,
+          "chapter_number": 1,
+          "chapter_title": "Chapter 1: HISHE",
+          "chapter_text": "How it will never end..."
+        }
+    }
+  ]

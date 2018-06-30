@@ -1,0 +1,50 @@
+{% extends "site_base.html" %}
+{% block content %}
+<nav aria-label="breadcrumb" role="navigation">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">{{ fandom }}</li>
+    </ol>
+</nav>
+
+{% if user.is_authenticated == True %}
+<br>
+<div class="card-columns">
+  {% for story in story_list %}
+  <div class="col-sm">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="/read/{{ story.auto_uid }}/">{{ story.story_title }}</a>
+        </h4>
+        <p class="card-text">{{  story.story_description|safe|truncatewords:60 }}</p>
+        <small class="text-muted">
+            <p class="card-text text-left">Last updated:{{ story.story_last_modified }}</p>
+            <p class="card-text text-right">Author: <a href="/p/{{ story.author }}/">{{ story.author }}</a></p>        
+          </small>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<br>
+<div class="card-columns">
+  {% for story in story_list_save %}
+  <div class="col-sm">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">
+          <a href="/read/{{ story.auto_uid }}/">{{ story.story_title }}</a>
+        </h4>
+        <p class="card-text">{{ story.story_description }}</p>
+        <p class="card-text">
+          <small class="text-muted">Last updated:{{ story.story_last_modified }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

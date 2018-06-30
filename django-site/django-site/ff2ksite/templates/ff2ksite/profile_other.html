@@ -1,0 +1,41 @@
+{% extends "site_base.html" %} {% block content %} {% if user.is_authenticated == True %}
+<script>
+    $(document).ready(function () {
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+        });
+        var activeTab = localStorage.getItem('activeTab');
+        if (activeTab) {
+            $('#myTab a[href="' + activeTab + '"]').tab('show');
+        }
+    });
+</script>
+<br>
+<div class="row col-sm">
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col">
+                <div class="list-group" id="myTab">
+                    <a href="#profile" data-toggle="tab" class="list-group-item list-group-item-action">
+                        Profile
+                    </a>
+                    <a href="#stories" data-toggle="tab" class="list-group-item list-group-item-action">
+                        Stories
+                    </a>
+
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active" id="profile">
+                        {% include "ff2ksite/profile_profile_other.html" %}
+                    </div>
+                    <div class="tab-pane fade" id="stories">
+                        {% include "ff2ksite/profile_other_stories.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %} {% include "ff2ksite/access_denied.html" %} {% endif %} {% endblock %}

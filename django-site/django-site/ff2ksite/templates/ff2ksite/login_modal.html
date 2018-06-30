@@ -1,0 +1,49 @@
+{% load countries %}
+<div class="modal fade" id="LoginModal" tabindex="-1" role="dialog" aria-labelledby="LoginModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="LoginModalLabel">Registration</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>There was a problem logging you in.</p>
+                {% if form.errors %} {% for field in form %} {% for error in field.errors %}
+                <div class="alert alert-error">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+                <div class="alert alert-error">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+                {% endfor %} {% endif %}
+                <form class="login" action="{% url 'account_login' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="id_login">Name:</label>
+                            <input type="text" class="form-control" name="login" minlength="1" id="id_login" autofocus="autofocus" required placeholder="Username or e-mail"
+                                maxlength="150" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="id_password">Password:</label>
+                            <input type="password" class="form-control" name="password" id="id_password" placeholder="Password" required />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Try Again</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#LoginModal').on('shown.bs.modal', function () {
+        $('#myInput').trigger('focus')
+    })
+</script>

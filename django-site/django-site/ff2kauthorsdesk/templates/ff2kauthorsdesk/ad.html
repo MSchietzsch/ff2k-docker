@@ -1,0 +1,64 @@
+{% extends "site_base.html" %} {% block head_title %} {% endblock %} {% load static %} {% block head_extra %} {% endblock%} {% block content %}
+<script>
+    $(document).ready(function () {
+        $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+            localStorage.setItem('activeTab', $(e.target).attr('href'));
+        });
+        var activeTab = localStorage.getItem('activeTab');
+        if (activeTab) {
+            $('#myTabAD a[href="' + activeTab + '"]').tab('show');
+        }
+    });
+</script>
+<style>
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+</style>
+<br>
+{% if user.is_authenticated == False %} {% include "ff2ksite/access_denied.html" %}
+<h3>Access denied!</h3>
+{% else %} 
+<div class="row col-sm">
+    <div class="col-sm-9">
+        <div class="row">
+            <div class="col">
+                <div class="list-group" id="myTabAD">
+                    <a data-toggle="tab" href="#dashboard" class="list-group-item list-group-item-action">
+                        Dashboard
+                    </a>
+                    <a data-toggle="tab" href="#stories" class="list-group-item list-group-item-action">
+                        Stories
+                    </a>
+                </div>
+            </div>
+            <div class="col-9">
+                <div class="tab-content">
+                    <div class="tab-pane fade active" id="dashboard">
+                        {% include "ff2kauthorsdesk/ad_dashboard.html" %}
+                    </div>
+                    <div class="tab-pane fade" id="stories">
+                            <div class="list-group">
+                                    {% for story in story_list %}
+                                <a href="{{ story.auto_uid }}" class="list-group-item list-group-item-action flex-column align-items-start active">
+                                  <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{{ story }}</h5>
+                                    <small>Last updated: {{ story.story_last_modified }}</small>                                    
+                                  </div>
+                                  <p class="mb-1">{{ story.story_description|safe }}</p>
+                                  <p class="alignleft"><small>{% for tag in story.story_tags.all %}{{ tag }} {% endfor %}</small></p>
+                                  <p class="alignright"><small>First release: {{ story.story_initial_release }}</small></p>
+                                </a>
+                                {% endfor %}
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,74 @@
+[
+    {
+        "model": "auth.user",
+        "pk": 3,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$obalM4dgIVHk$AmkwgruZHJ0uYrWFmrxjrTI2AzvxmVKmelOczCH0vTg=",
+            "last_login": "2018-01-02T15:06:21.251Z",
+            "is_superuser": true,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "admin@ff2k.net",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2017-12-06T10:32:07.586Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 5,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$tPZDaaPzTwy0$J0bEiS9MTrAiU5l5Lr5MD+jyhmeyqH9+IR70yw/LshE=",
+            "last_login": "2017-12-12T14:26:16.272Z",
+            "is_superuser": false,
+            "username": "Deadwoodpecker",
+            "first_name": "",
+            "last_name": "",
+            "email": "Deadwoodpecker@ff2k.net",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2017-12-12T14:26:16.153Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 6,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$iLUKrSJQQ93d$Z8NQQUlReGvDE1SJOu5T/UZdQ1/qDYBTrnN8VzamICQ=",
+            "last_login": "2017-12-12T16:10:17.869Z",
+            "is_superuser": false,
+            "username": "Halandar",
+            "first_name": "",
+            "last_name": "",
+            "email": "schietzsch@googlemail.com",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2017-12-12T14:25:42Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "auth.user",
+        "pk": 8,
+        "fields": {
+            "password": "pbkdf2_sha256$100000$xbGyRk3AaMP2$un4CTZjDxi22O081BnTbOlFy+jiIyAUaJCiiTWhNJak=",
+            "last_login": null,
+            "is_superuser": false,
+            "username": "Zeitgeist84",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2017-12-20T08:54:07.385Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    }
+]

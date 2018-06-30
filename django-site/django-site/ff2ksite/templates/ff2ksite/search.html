@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+{% block content %}
+<br>
+{% if user.is_authenticated == False %} {% include "ff2ksite/access_denied.html" %}
+<h2>DENIED</h2>
+{% endif %}
+
+<div class="col-sm">
+    <h2><i class="oi oi-magnifying-glass"></i> Advanced Search</h2>
+    
+    <form>
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="story_title" class="font-weight-bold">Title</label>
+            <input type="title" class="form-control" id="story_title" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="author" class="font-weight-bold">Author</label>
+            <input type="title" class="form-control" id="author" placeholder="Author">
+        </div>
+        <div class="dropdown-divider"></div>
+        <div class="form-group">
+        <button type="submit" class="btn btn-success btn-lg">Search</button>
+        <button type="submit" class="btn btn-outline-warning btn-sm">Reset Form</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
