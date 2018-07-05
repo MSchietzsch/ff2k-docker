@@ -1,6 +1,7 @@
 {% load static %} {% load account %}
 <!doctype html>
 <html lang="en">
+
 <head>
   <title>{% block title %}FF 2k{% endblock %}</title>
   {% block head_extra %}{% endblock %}
@@ -8,18 +9,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="robots" content="noarchive" />
   <script>
-  window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-  ga('create', 'UA-113376276-1', 'auto');
-  ga('send', 'pageview');
+    window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+    ga('create', 'UA-113376276-1', 'auto');
+    ga('send', 'pageview');
   </script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
-  <link rel="shortcut icon" href="{% static 'favicon.ico' %}"/>
-  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
-  <link rel="stylesheet" href="{% static "chosen/chosen.min.css" %}">
-  <script src="{% static "jquery/jquery-3.3.1.slim.min.js" %}"></script>
-  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
-  <script src="{% static "chosen/chosen.jquery.min.js" %}"></script>
-  <script src="{% static "fontawesome/js/fontawesome.min.js" %}"></script>
+  <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
+  <link rel="stylesheet" href="{% static " css/bootstrap.min.css " %}">
+  <link rel="stylesheet" href="{% static " chosen/chosen.min.css " %}">
+  <script src="{% static " jquery/jquery-3.3.1.slim.min.js " %}"></script>
+  <script src="{% static " js/bootstrap.bundle.min.js " %}"></script>
+  <script src="{% static " chosen/chosen.jquery.min.js " %}"></script>
+  <script src="{% static " fontawesome/js/fontawesome.min.js " %}"></script>
   <script>
     $(function () {
       $('.chosen-select').chosen();
@@ -27,6 +28,7 @@
     })
   </script>
 </head>
+
 <body class="{% block body_class %}{% endblock %}">
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
     <a class="navbar-brand" href="/">Home</a>
@@ -37,7 +39,8 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSearch" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkSearch" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             Fandoms
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkSearch">
@@ -50,15 +53,16 @@
           <a class="nav-link" href="/search">Search</a>
         </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAbout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              About
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAbout">
-              <a class="dropdown-item" href="/about">About Us</a>
-              <a class="dropdown-item" href="/privacy">Privacy Policy</a>
-              <a class="dropdown-item" href="/disclaimer">Disclaimer</a>
-            </div>
-          </li>
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAbout" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            About
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAbout">
+            <a class="dropdown-item" href="/about">About Us</a>
+            <a class="dropdown-item" href="/privacy">Privacy Policy</a>
+            <a class="dropdown-item" href="/disclaimer">Disclaimer</a>
+          </div>
+        </li>
       </ul>
     </div>
     {% if user.is_authenticated == False %}
@@ -72,8 +76,8 @@
         <label class="sr-only" for="id_password_f"></label>
         <input class="form-control p-1" id="id_password_f" name="password" placeholder="Password" type="password" required />
         <button type="submit" class="btn btn-primary btn-sm">Login</button>
-      <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#RegisterModal">Register</button>
-      </div>      
+        <button type="button" class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#RegisterModal">Register</button>
+      </div>
     </form>
     {% else %}
     <form class="form-inline" action="{% url 'account_logout' %}" method="post">
@@ -81,36 +85,40 @@
       <div class="p-1 mb-2 mr-sm-2 mb-sm-0">
         {% if request.path == '/profile/' %}
         <button type="button" class="btn btn-outline-success btn-sm active" onClick="javascript:history.go(-1);">{% user_display user %}</button>
-        {% else %}  
+        {% else %}
         <a class="btn btn-outline-success btn-sm" href="/profile" role="button">{% user_display user %}</a>
         {% endif %}
         <button type="submit" class="btn btn-outline-danger btn-sm">Logout</button>
       </div>
-    {% endif %}
-  </form>
+      {% endif %}
+    </form>
   </nav>
-  {% if user.is_authenticated == False %}{% include "ff2ksite/login_modal.html" %}{% include "ff2ksite/register_modal.html" %}{% endif %} {% block content %}{% endblock %}
+  {% if user.is_authenticated == False %}{% include "ff2ksite/login_modal.html" %}{% include "ff2ksite/register_modal.html"
+  %}{% endif %} {% block content %}{% endblock %}
   <!-- ===================================== START FOOTER ===================================== -->
 </body>
 <footer>
-<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
-<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
-<script>
-window.addEventListener("load", function(){
-window.cookieconsent.initialise({
-  "palette": {
-    "popup": {
-      "background": "#3e3f3a"
-    },
-    "button": {
-      "background": "#284A6C"
-    }
-  },
-  "theme": "classic",
-  "content": {
-    "href": "/privacy"
-  }
-})});
-</script>
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css"
+  />
+  <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+  <script>
+    window.addEventListener("load", function () {
+      window.cookieconsent.initialise({
+        "palette": {
+          "popup": {
+            "background": "#3e3f3a"
+          },
+          "button": {
+            "background": "#284A6C"
+          }
+        },
+        "theme": "classic",
+        "content": {
+          "href": "/privacy"
+        }
+      })
+    });
+  </script>
 </footer>
+
 </html>
