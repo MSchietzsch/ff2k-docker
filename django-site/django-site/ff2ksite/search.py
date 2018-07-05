@@ -1,6 +1,5 @@
-from elasticsearch_dsl import DocType, Text, Date, Integer, Search
 from elasticsearch import Elasticsearch
-from elasticsearch_dsl import DocType, Text, Date, Search, Nested, Keyword, Mapping
+from elasticsearch_dsl import DocType, Text, Date, Search, Nested, Keyword, Mapping, Integer
 from elasticsearch_dsl.connections import connections
 from elasticsearch.helpers import bulk
 from django.db import models
