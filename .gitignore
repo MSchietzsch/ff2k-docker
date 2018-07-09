@@ -1,6 +1,7 @@
 django-site/django-site/virtenv/*
 .env
 *.pem
+aws-config
 
 # custom
 .directory
