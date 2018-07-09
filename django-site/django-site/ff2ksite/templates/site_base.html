@@ -15,12 +15,12 @@
   </script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
-  <link rel="stylesheet" href="{% static " css/bootstrap.min.css " %}">
-  <link rel="stylesheet" href="{% static " chosen/chosen.min.css " %}">
-  <script src="{% static " jquery/jquery-3.3.1.slim.min.js " %}"></script>
-  <script src="{% static " js/bootstrap.bundle.min.js " %}"></script>
-  <script src="{% static " chosen/chosen.jquery.min.js " %}"></script>
-  <script src="{% static " fontawesome/js/fontawesome.min.js " %}"></script>
+  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
+  <link rel="stylesheet" href="{% static "chosen/chosen.min.css" %}">
+  <script src="{% static "jquery/jquery-3.3.1.slim.min.js" %}"></script>
+  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
+  <script src="{% static "chosen/chosen.jquery.min.js" %}"></script>
+  <script src="{% static "fontawesome/js/fontawesome.min.js" %}"></script>
   <script>
     $(function () {
       $('.chosen-select').chosen();
@@ -93,8 +93,7 @@
       {% endif %}
     </form>
   </nav>
-  {% if user.is_authenticated == False %}{% include "ff2ksite/login_modal.html" %}{% include "ff2ksite/register_modal.html"
-  %}{% endif %} {% block content %}{% endblock %}
+  {% if user.is_authenticated == False %}{% include "ff2ksite/login_modal.html" %}{% include "ff2ksite/register_modal.html"%}{% endif %} {% block content %}{% endblock %}
   <!-- ===================================== START FOOTER ===================================== -->
 </body>
 <footer>
