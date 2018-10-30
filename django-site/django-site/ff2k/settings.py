@@ -39,8 +39,8 @@ if ENVIRONMENT == "dev":
     ALLOWED_HOSTS = []
     ENVIRONMENT = "dev"
 elif ENVIRONMENT == "docker_compose":
-    DEBUG = True
-    ALLOWED_HOSTS = []
+    DEBUG = False
+    ALLOWED_HOSTS = ['www.ff2k.net', 'ff2k.net']
 elif ENVIRONMENT == "aws_beanstalk":
     DEBUG = False
     ALLOWED_HOSTS = []
@@ -282,7 +282,7 @@ else:
         'application/font-sfnt',
         'application/font-woff',
     )
-
+    AWS_DEFAULT_ACL = None
     AWS_LOCATION = 'static'
 
     STATICFILES_DIRS = [
@@ -314,13 +314,16 @@ else:
     SESSION_COOKIE_HTTPONLY = False
 
 # mail settings
-EMAIL_BACKEND = 'mailer.backend.DbBackend'
-EMAIL_USE_TLS = True
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT')
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-DEFAULT_FROM_EMAIL = 'mailer@ff2k.net'
+EMAIL_BACKEND = 'django_ses.SESBackend'
+# These are optional -- if they're set as environment variables they won't
+# need to be set here as well
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+
+# Additionally, if you are not using the default AWS region of us-east-1,
+# you need to specify a region, like so:
+AWS_SES_REGION_NAME = 'eu-west-1'
+AWS_SES_REGION_ENDPOINT = 'email.eu-west-1.amazonaws.com'
 
 
 # allauth settings
