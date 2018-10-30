@@ -182,6 +182,7 @@ services:
       - logstash
     volumes:
       - ./haproxy/config/:/usr/local/etc/haproxy:ro
+      - ./haproxy/certbot.sh:/etc/periodic/daily/certbot.sh:ro
     ports:
       - "8181:8181"
       - "80:80"
