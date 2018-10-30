@@ -15,12 +15,12 @@
   </script>
   <script async src='https://www.google-analytics.com/analytics.js'></script>
   <link rel="shortcut icon" href="{% static 'favicon.ico' %}" />
-  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}">
-  <link rel="stylesheet" href="{% static "chosen/chosen.min.css" %}">
-  <script src="{% static "jquery/jquery-3.3.1.slim.min.js" %}"></script>
-  <script src="{% static "js/bootstrap.bundle.min.js" %}"></script>
-  <script src="{% static "chosen/chosen.jquery.min.js" %}"></script>
-  <script src="{% static "fontawesome/js/fontawesome.min.js" %}"></script>
+  <link rel="stylesheet" href="{% static "css/bootstrap.min.css" %}" integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE= sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO sha512-iQQV+nXtBlmS3XiDrtmL+9/Z+ibux+YuowJjI4rcpO7NYgTzfTOiFNm09kWtfZzEB9fQ6TwOVc8lFVWooFuD/w==" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static "chosen/chosen.min.css" %}" integrity="sha256-4LdsL3Q2cUVVke0CPP9V7cKKromYbo1vBVtmGosZCEQ= sha384-w0PXumBPj3tOGJELK0aXVUwlX3kFbajVjm1PNlJSWe6xuTYwPhYZHkrENnh5RPAi sha512-6jXBImeUKcNOE3hNl69b+zz8vTZlFO9zbrkHwfNuTr7GvpucioVow6ZLBvtnzUkDH4xqQeI1ceJg2lN7QuueJA==" crossorigin="anonymous">
+  <script src="{% static "jquery/jquery-3.3.1.slim.min.js" %}" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E= sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo sha512-M+qMI1PHRcYcOpJzeJlaWbVVx2JJyPIwZas8or7dc97LZOokjvbpfRxymhVtlJLyjiF3wGyr0FJOA4DLONLVLw==" crossorigin="anonymous"></script>
+  <script src="{% static "js/bootstrap.bundle.min.js" %}"  integrity="sha256-E/V4cWE4qvAeO5MOhjtGtqDzPndRO1LBk8lJ/PR7CA4= sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl sha512-U85Jq47KunKegjv6gVMAnQwtQjovdXz/DQOvQoxrD6j3aGfDDbp5AAJuOdnQx1sefM90D9KBKSQkZGR5hrLbtg==" crossorigin="anonymous"></script>
+  <script src="{% static "chosen/chosen.jquery.min.js" %}" integrity="sha256-86GOHgGCmkCetmI/XdnFZ5e3X3Jm7JjDm5lPpgcUJR4= sha384-Z8aA2DOVSMn1TU3XLgU/xM5oQTLQpGiQihvyL1x7m3louAWMRXh7MkoGJ98j/tMb sha512-MbDx1x0iTEQCAUPl8rkCL5QKfPGVRgxZWodQm1+dJ936z/MHayw4L9p/M0kpD3xpvtb/lYEFRUuQnInmwiKTmg==" crossorigin="anonymous"></script>
+  <script src="{% static "fontawesome/js/fontawesome.min.js" %}" integrity="sha256-N0aCpQHPSiMqfCUIyb5qd45fAzB4cPnObSKMnIqLi9o= sha384-rttr/ldR2uHigckjTCjMDe47ySeFVaL3Q7xUkJZir56u8Z8h/XnHJXHocgyfb25F sha512-5QbGNntBFhPXLMcTcu8CdymP0G0+SqJ8mxY5madxHTCAz8vTdXrUplHex8qfYWQwR5XD0jlIZDSZ77YBPexnQA==" crossorigin="anonymous"></script>
   <script>
     $(function () {
       $('.chosen-select').chosen();
@@ -28,6 +28,7 @@
     })
   </script>
 </head>
+  <!-- ===================================== HEAD END ===================================== -->
 
 <body class="{% block body_class %}{% endblock %}">
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
