@@ -7,7 +7,7 @@ from . import models
 from django.conf import settings
 
 if settings.ENVIRONMENT != "dev":
-    connections.create_connection(hosts=['elasticsearch'], timeout=20)
+    connections.create_connection(hosts=['elasticsearch'], timeout=20, sniff_on_start=True)
 
 
 class StoryIndex(DocType):
