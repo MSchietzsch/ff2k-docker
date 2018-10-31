@@ -3,7 +3,7 @@ Django based webapp with ELK stack infrastruckture for docker-compose
 
 Start with 
 
-``docker-compose build && docker-compose up  && docker-compose rm -f``
+``docker-compose build && docker-compose up --scale elasticsearch-node=2 --scale web=12 --scale redis=3  && docker-compose rm -f``
 
 
 ## ELK Stack
