@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
 
@@ -8,7 +8,7 @@ services:
     container_name: ff2k_elasticsearch
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - ff2k-el-data:/usr/share/elasticsearch/data
+      - ff2k-el-master:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
       - "9300:9300"
@@ -19,35 +19,21 @@ services:
     networks:
       - ff2k
 
-  elasticsearch2:
+  el-node:
     build:
       context: elasticsearch/
-    container_name: ff2k_elasticsearch2
+    depends_on:
+      - elasticsearch
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - ff2k-el-data2:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       ELASTIC_PASSWORD: changeme
       discovery.type: zen
       discovery.zen.ping.unicast.hosts: elasticsearch
     networks:
-      - ff2k
-
-  elasticsearch3:
-    build:
-      context: elasticsearch/
-    container_name: ff2k_elasticsearch3
-    volumes:
-      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
-      - ff2k-el-data3:/usr/share/elasticsearch/data
-    environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
-      ELASTIC_PASSWORD: changeme
-      discovery.type: zen
-      discovery.zen.ping.unicast.hosts: elasticsearch
-    networks:
-      - ff2k
+      - ff2k    
+    restart: on-failure
 
   logstash:
     build:
@@ -65,6 +51,8 @@ services:
       - ff2k
     depends_on:
       - elasticsearch
+    restart: on-failure:5
+
 
   kibana:
     build:
@@ -78,6 +66,7 @@ services:
       - ff2k
     depends_on:
       - elasticsearch
+    restart: on-failure
 
   mysql:
     build:
@@ -95,6 +84,7 @@ services:
       - "3306:3306"
     networks:
       - ff2k
+    restart: on-failure:3
 
   memcached1:
     image:  memcached:alpine
@@ -103,6 +93,7 @@ services:
     command: memcached
     networks:
       - ff2k
+    restart: on-failure:3
 
   memcached2:
     image:  memcached:alpine
@@ -111,45 +102,33 @@ services:
     command: memcached
     networks:
       - ff2k
+    restart: on-failure:3
 
-  web:
+  web_master:
     build:
       context: django-site/
-    container_name: ff2k_web1    
+    container_name: ff2k_webmaster 
     depends_on:
       - mysql
       - elasticsearch
     environment:
       - DJANGO_ENVIRONMENT=docker_compose
     command: >
-      sh -c "sleep 40 &&
-               python manage.py makemigrations ff2ksite &&
-               python manage.py makemigrations &&               
-               python manage.py migrate &&               
-               python manage.py loaddata ff2k/fixtures/sites.json &&
-               python manage.py loaddata ff2k/fixtures/users.json &&
-               python manage.py loaddata ff2ksite/fixtures/ff2ksite_data.json &&
-               python manage.py collectstatic --noinput &&
+      sh -c "sleep 60 && \
+               python manage.py makemigrations ff2ksite && \
+               python manage.py makemigrations &&          \     
+               python manage.py migrate &&               \
+               python manage.py loaddata ff2k/fixtures/sites.json &&\
+               python manage.py loaddata ff2k/fixtures/users.json &&\
+               python manage.py loaddata ff2ksite/fixtures/ff2ksite_data.json &&\
+               python manage.py collectstatic --noinput &&\
                daphne -e ssl:8443:privateKey=privkey.pem:certKey=cert.pem ff2k.asgi:application -v 1"
     networks:
       - ff2k
-      
-  web2:
-    image: ff2kdocker_web:latest
-    container_name: ff2k_web2
-    depends_on:
-      - mysql
-      - elasticsearch
-    environment:
-      - DJANGO_ENVIRONMENT=docker_compose
-    command: >
-      sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=cert.pem ff2k.asgi:application -v 1"
-    networks:
-      - ff2k
+    restart: on-failure:5
 
-  web3:
-    image: ff2kdocker_web:latest
-    container_name: ff2k_web3
+  web:
+    image: ff2kdocker_web_master:latest
     depends_on:
       - mysql
       - elasticsearch
@@ -159,19 +138,7 @@ services:
       sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=cert.pem ff2k.asgi:application -v 1"
     networks:
       - ff2k
-
-  web4:
-    image: ff2kdocker_web:latest
-    container_name: ff2k_web4
-    depends_on:
-      - mysql
-      - elasticsearch
-    environment:
-      - DJANGO_ENVIRONMENT=docker_compose
-    command: >
-      sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=cert.pem ff2k.asgi:application -v 1"
-    networks:
-      - ff2k
+    restart: on-failure    
 
   haproxy:
     build:
@@ -189,6 +156,17 @@ services:
       - "443:443"
     networks:
       - ff2k
+    restart: on-failure    
+
+  redis:
+    build:
+      context: redis/
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    command: "redis-server /usr/local/etc/redis/redis.conf"
+    networks:
+      - ff2k
+    restart: on-failure:3
 
 networks:
 
@@ -196,8 +174,6 @@ networks:
     driver: bridge
 
 volumes:
-  ff2k-el-data:
-  ff2k-el-data2:
-  ff2k-el-data3:
+  ff2k-el-master:
   ff2k-mysql-data:
   
