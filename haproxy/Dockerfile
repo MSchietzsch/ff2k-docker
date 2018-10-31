@@ -72,5 +72,5 @@ RUN apk add --no-cache --virtual .pynacl_deps python3 build-base python3-dev lib
   && pip3 install --upgrade pip \
   && pip3 install certbot certbot-dns-route53
 COPY aws-config /root/.aws/config
-RUN certbot certonly -n --agree-tos --email schietzsch@googlemail.com --dns-route53 -d ff2k.net
+RUN certbot certonly -n --agree-tos --email schietzsch@googlemail.com --dns-route53 -d ff2k.net --staging
 RUN cat /etc/letsencrypt/live/ff2k.net/fullchain.pem /etc/letsencrypt/live/ff2k.net/privkey.pem > /usr/local/etc/ff2k_full.pem

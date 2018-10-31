@@ -1,2 +1,2 @@
 #!/bin/sh
-/usr/bin/certbot renew
+/usr/bin/certbot renew --staging
