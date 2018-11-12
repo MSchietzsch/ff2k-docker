@@ -28,7 +28,7 @@ RUN set -x \
 		readline-dev \
 		tar \
 		zlib-dev \
-		wget \l
+		wget \
 	\
 
 # update certs
