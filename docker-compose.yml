@@ -5,7 +5,7 @@ services:
   elasticsearch:
     build:
       context: elasticsearch/
-    container_name: ff2k_elasticsearch
+    container_name: elasticsearch
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
       - ff2k-el-master:/usr/share/elasticsearch/data
@@ -53,7 +53,6 @@ services:
       - elasticsearch
     restart: on-failure:5
 
-
   kibana:
     build:
       context: kibana/
@@ -68,23 +67,17 @@ services:
       - elasticsearch
     restart: on-failure
 
-  mysql:
-    build:
-      context: mysql/
-    container_name: ff2k_mysql
-    volumes:
-      - ./mysql/config/my.cnf:/etc/mysql/my.cnf:ro
-      - ff2k-mysql-data:/var/lib/mysql
-    environment:
-      - MYSQL_DATABASE=ff2kdb
-      - MYSQL_USER=ff2k
-      - MYSQL_PASSWORD=somepass
-      - MYSQL_ROOT_PASSWORD=some_password
-    ports:
-      - "3306:3306"
-    networks:
-      - ff2k
-    restart: on-failure:3
+  pgsql:
+      build:
+          context: pgsql/
+      volumes:
+        - ff2k-pgsql-data:/var/lib/postgresql/data
+      networks:
+        - ff2k
+      restart: always  
+      environment:
+       - POSTGRES_DB=ff2kdb
+       - POSTGRES_PASSWORD=some_password
 
   memcached1:
     image:  memcached:alpine
@@ -109,7 +102,7 @@ services:
       context: django-site/
     container_name: ff2k_webmaster 
     depends_on:
-      - mysql
+      - pgsql
       - elasticsearch
     environment:
       - DJANGO_ENVIRONMENT=docker_compose
@@ -130,7 +123,7 @@ services:
   web:
     image: ff2kdocker_web_master:latest
     depends_on:
-      - mysql
+      - pgsql
       - elasticsearch
     environment:
       - DJANGO_ENVIRONMENT=docker_compose
@@ -175,5 +168,5 @@ networks:
 
 volumes:
   ff2k-el-master:
-  ff2k-mysql-data:
+  ff2k-pgsql-data:
   

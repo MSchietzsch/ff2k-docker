@@ -2,7 +2,7 @@ FROM python:alpine
 MAINTAINER schietzsch@googlemail.com
 
 RUN apk update \
-  && apk add --update mariadb-dev libffi-dev build-base openssl\  
+  && apk add --update postgresql-dev libffi-dev build-base openssl\  
   && rm -rf /var/cache/apk/*
 
 ADD run-15mins.sh /etc/periodic/15min/
