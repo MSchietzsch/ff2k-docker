@@ -40,7 +40,7 @@ if ENVIRONMENT == "dev":
     ENVIRONMENT = "dev"
 elif ENVIRONMENT == "docker_compose":
     DEBUG = True
-    ALLOWED_HOSTS = ['www.ff2k.net', 'ff2k.net']
+    ALLOWED_HOSTS = ['*']
 elif ENVIRONMENT == "aws_beanstalk":
     DEBUG = True
     ALLOWED_HOSTS = []
