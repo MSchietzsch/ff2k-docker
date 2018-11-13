@@ -38,7 +38,6 @@ services:
   logstash:
     build:
       context: logstash/
-    container_name: ff2k_logstash    
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
@@ -56,7 +55,6 @@ services:
   kibana:
     build:
       context: kibana/
-    container_name: ff2k_kibana    
     volumes:
       - ./kibana/config/:/usr/share/kibana/config:ro
     ports:
@@ -78,24 +76,6 @@ services:
       environment:
        - POSTGRES_DB=ff2kdb
        - POSTGRES_PASSWORD=some_password
-
-  memcached1:
-    image:  memcached:alpine
-    hostname: memcached1
-    container_name: ff2k_memcached1
-    command: memcached
-    networks:
-      - ff2k
-    restart: on-failure:3
-
-  memcached2:
-    image:  memcached:alpine
-    hostname: memcached2    
-    container_name: ff2k_memcached2
-    command: memcached
-    networks:
-      - ff2k
-    restart: on-failure:3
 
   web_master:
     build:
@@ -151,15 +131,44 @@ services:
       - ff2k
     restart: on-failure    
 
-  redis:
-    build:
-      context: redis/
-    volumes:
-      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
-    command: "redis-server /usr/local/etc/redis/redis.conf"
+  couchbase:
+      image: couchbase:latest
+      command: >
+        couchbase-cli cluster-init -c 127.0.0.1 \
+        --cluster-username Administrator \
+        --cluster-password password \
+        --services data,index,query \
+        --cluster-ramsize 512 \
+        --cluster-index-ramsize 256
+
+  memcached1:
+    image:  memcached:alpine
+    hostname: memcached
+    container_name: memcached
+    command: memcached
     networks:
       - ff2k
     restart: on-failure:3
+
+#  redis:
+#    build:
+#      context: redis/
+#    container_name: redis
+#    volumes:
+#      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+#    command: "redis-server /usr/local/etc/redis/redis.conf"
+#    networks:
+#      - ff2k
+#    restart: on-failure:3
+#
+#  redis_node:
+#    image: ff2kdocker_redis:latest
+#    volumes:
+#      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+#    command: "redis-server /usr/local/etc/redis/redis.conf"
+#    networks:
+#      - ff2k
+#    restart: on-failure:3
 
 networks:
 

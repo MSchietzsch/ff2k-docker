@@ -39,13 +39,13 @@ if ENVIRONMENT == "dev":
     ALLOWED_HOSTS = []
     ENVIRONMENT = "dev"
 elif ENVIRONMENT == "docker_compose":
-    DEBUG = False
+    DEBUG = True
     ALLOWED_HOSTS = ['www.ff2k.net', 'ff2k.net']
 elif ENVIRONMENT == "aws_beanstalk":
-    DEBUG = False
+    DEBUG = True
     ALLOWED_HOSTS = []
 else:
-    DEBUG = False
+    DEBUG = True
     ALLOWED_HOSTS = ['www.ff2k.net', 'ff2k.net', 'alpha.ff2k.net']
 
 SITE_ID = 1
@@ -235,10 +235,7 @@ elif ENVIRONMENT == "docker_compose":
     CACHES = {
         'default': {
             'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': [
-                'memcached1:11211',
-                'memcached2:11211',
-            ]
+            'LOCATION': 'memcached:11211',
         }
     }
 
