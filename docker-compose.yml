@@ -145,7 +145,7 @@ services:
     image:  memcached:alpine
     hostname: memcached
     container_name: memcached
-    command: memcached
+    command: memcached -vv
     networks:
       - ff2k
     restart: on-failure:3
