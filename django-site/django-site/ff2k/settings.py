@@ -216,37 +216,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-if ENVIRONMENT == "docker_compose":
-    SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-else:
-    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
-
-if ENVIRONMENT == "dev":
-
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-        }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': 'memcached:11211',
     }
-
-elif ENVIRONMENT == "docker_compose":
-
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-            'LOCATION': 'memcached:11211',
-        }
-    }
-
-else:
-
-    CACHES = {
-        'default': {
-            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-            'LOCATION': 'unique-snowflake',
-        }
-    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
