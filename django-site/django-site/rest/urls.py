@@ -10,7 +10,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),    
     path('stories/', views.rest_story_list.as_view()),
     re_path('stories/(?P<auto_uid>[a-fA-F0-9]{8})/?$', views.rest_story_detailas_view.as_view()),
-
+    path('users/', views.rest_user_list.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

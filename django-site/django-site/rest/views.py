@@ -1,12 +1,13 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 from ff2ksite.models import Story, Chapter, Fandom
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest.serializers import StoriesSerializer, StorySerializer
+from rest.serializers import StoriesSerializer, StorySerializer, UserSerializer, UserSerializer_auth
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework import permissions
@@ -31,9 +32,18 @@ class rest_story_detailas_view(APIView):
             raise Http404
     def get(self, request, auto_uid, format=None):
         story = Story.objects.get(auto_uid=auto_uid)
-        #chapter_list = Chapter.objects.filter(story=story).exclude(chapter_flag_hidden=True)
         if story.story_is_save == True:
             serializer = StorySerializer(story)
             return Response(serializer.data)
         else:
             return HttpResponseForbidden()
+
+@permission_classes((permissions.AllowAny,))
+class rest_user_list(APIView):
+    def get(self, request, format=None):
+        authors = User.objects.all()
+        if request.user.is_authenticated == True:
+            serializer = UserSerializer_auth(authors, many=True)
+        else:
+            serializer = UserSerializer(authors, many=True)
+        return Response(serializer.data)
