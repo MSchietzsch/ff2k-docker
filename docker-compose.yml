@@ -19,13 +19,31 @@ services:
     networks:
       - ff2k
 
-  el-node:
+  el-node1:
     build:
       context: elasticsearch/
     depends_on:
       - elasticsearch
     volumes:
       - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ff2k-el-node1:/usr/share/elasticsearch/data
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ELASTIC_PASSWORD: changeme
+      discovery.type: zen
+      discovery.zen.ping.unicast.hosts: elasticsearch
+    networks:
+      - ff2k    
+    restart: on-failure
+
+  el-node2:
+    build:
+      context: elasticsearch/
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ff2k-el-node2:/usr/share/elasticsearch/data
     environment:
       ES_JAVA_OPTS: "-Xmx256m -Xms256m"
       ELASTIC_PASSWORD: changeme
@@ -87,8 +105,7 @@ services:
     environment:
       - DJANGO_ENVIRONMENT=docker_compose
     command: >
-      sh -c "sleep 60 && \
-               python manage.py makemigrations ff2ksite && \
+      sh -c "python manage.py makemigrations ff2ksite && \
                python manage.py makemigrations &&          \     
                python manage.py migrate &&               \
                python manage.py loaddata ff2k/fixtures/sites.json &&\
@@ -113,6 +130,33 @@ services:
       - ff2k
     restart: on-failure    
 
+  worker:
+    image: ff2kdocker_web_master:latest
+    depends_on:
+      - pgsql
+      - elasticsearch
+    environment:
+      - DJANGO_ENVIRONMENT=docker_compose
+    command: >
+      sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=cert.pem ff2k.asgi:application -v 1"
+    networks:
+      - ff2k
+    restart: on-failure  
+
+  api:
+    image: ff2kdocker_web_master:latest
+    depends_on:
+      - pgsql
+      - elasticsearch
+    environment:
+      - DJANGO_ENVIRONMENT=docker_compose
+    command: >
+      sh -c "daphne -e ssl:8443:privateKey=privkey.pem:certKey=cert.pem ff2k.asgi:application -v 1"
+    networks:
+      - ff2k
+    restart: on-failure  
+
+
   haproxy:
     build:
       context: haproxy/
@@ -130,16 +174,6 @@ services:
     networks:
       - ff2k
     restart: on-failure    
-
-  couchbase:
-      image: couchbase:latest
-      command: >
-        couchbase-cli cluster-init -c 127.0.0.1 \
-        --cluster-username Administrator \
-        --cluster-password password \
-        --services data,index,query \
-        --cluster-ramsize 512 \
-        --cluster-index-ramsize 256
 
   memcached1:
     image:  memcached:alpine
@@ -177,5 +211,7 @@ networks:
 
 volumes:
   ff2k-el-master:
+  ff2k-el-node1:
+  ff2k-el-node2:
   ff2k-pgsql-data:
   
