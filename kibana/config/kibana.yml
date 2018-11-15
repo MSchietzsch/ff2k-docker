@@ -12,3 +12,4 @@ logging.quiet: true
 #
 elasticsearch.username: elastic
 elasticsearch.password: changeme
+logging.quiet: true
