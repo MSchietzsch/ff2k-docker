@@ -19,7 +19,7 @@ class StoryIndex(DocType):
     story_last_modified = Date()
 
     class Index:
-        name = 'profile-index'
+        name = 'ff2k-index'
 
 class ChapterIndex(DocType):
     id = Text()
@@ -30,7 +30,7 @@ class ChapterIndex(DocType):
     chapter_release = Date()
 
     class Index:
-        name = 'profile-index'
+        name = 'ff2k-index'
 
 if settings.ENVIRONMENT == "dev":
 
