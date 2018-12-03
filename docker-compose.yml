@@ -111,7 +111,8 @@ services:
               python manage.py migrate && \
               python manage.py loaddata ff2k/fixtures/sites.json && \
               python manage.py loaddata ff2k/fixtures/users.json && \
-              python manage.py loaddata ff2ksite/fixtures/ff2ksite_data.json && \
+              python manage.py loaddata ff2ksite/fixtures/fandoms.json && \
+              python manage.py loaddata ff2ksite/fixtures/data3.json && \
               python manage.py collectstatic --noinput && \
               daphne -e ssl:8443:privateKey=privkey.pem:certKey=cert.pem ff2k.asgi:application -v 1"
     networks:
