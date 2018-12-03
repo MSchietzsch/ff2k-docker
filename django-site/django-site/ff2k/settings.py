@@ -38,7 +38,7 @@ if ENVIRONMENT == "dev":
     ALLOWED_HOSTS = []
     ENVIRONMENT = "dev"
 elif ENVIRONMENT == "docker_compose":
-    DEBUG = True
+    DEBUG = False
     ALLOWED_HOSTS = ['*']
 elif ENVIRONMENT == "aws_beanstalk":
     DEBUG = True
@@ -255,7 +255,7 @@ else:
         'application/font-sfnt',
         'application/font-woff',
     )
-    AWS_DEFAULT_ACL = None
+    AWS_DEFAULT_ACL = 'public-read'
     AWS_LOCATION = 'static'
 
     STATICFILES_DIRS = [

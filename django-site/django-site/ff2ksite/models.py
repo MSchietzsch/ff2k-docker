@@ -30,7 +30,7 @@ class Categories(models.Model):
 
 class Fandom(models.Model):
     fandom_name = models.CharField(
-        max_length=32, unique=True, blank=False, db_index=True)
+        max_length=64, unique=True, blank=False, db_index=True)
     fandom_descr = models.TextField(max_length=1200, blank=True)
     fandom_short = models.CharField(max_length=8, unique=True, blank=False)
 

@@ -9,6 +9,11 @@ class UserSerializer_auth(serializers.Serializer):
 class UserSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=100)
 
+class FandomSerializer(serializers.Serializer):
+    fandom_name = serializers.CharField(max_length=100)
+    fandom_descr = serializers.CharField(max_length=1200)
+    fandom_short = serializers.CharField(max_length=8)
+
 class StoriesSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Story
