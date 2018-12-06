@@ -136,6 +136,10 @@ elif ENVIRONMENT == "docker_compose":
             'HOST': config('DB_HOST'),
             'PORT': config('DB_PORT'),
         }
+        '3rd': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
 
 elif ENVIRONMENT == "aws_beanstalk":
