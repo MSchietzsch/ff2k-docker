@@ -6,23 +6,25 @@ from Crypto.Random import get_random_bytes
 
 # pretty much from https://pycryptodome.readthedocs.io/en/latest/src/cipher/classic.html#cbc-mode -> 
 creds = {
-	"username": "Deadwoodpecker",
+	"username": "someusername",
 	"password": "jyhmeyqH9+IR70yw/LshE"
 }
-data = b"jyhmeyqH9+IR70yw/LshE"
+
+#key = get_random_bytes(32)
+key = b'\xcc\xb0\xa5ad\xc59~Od\xde\xcf\x18\xfe\xdd\xf4~\xb2\xa2\x14\x91K\xed\x9b\xfb_\xf6$\xfce9\x89'
+
+json_str = json.dumps(creds)
+data = json_str.encode('utf-8')
 
 class Store_in_db():
-    data = json.dumps(creds)
-    key = get_random_bytes(32)
+    data = json.dumps(resp)
     cipher = AES.new(key, AES.MODE_CBC)
     ct_bytes = cipher.encrypt(pad(data, AES.block_size))
     iv = b64encode(cipher.iv).decode('utf-8')
     ct = b64encode(ct_bytes).decode('utf-8')
     result = json.dumps({'iv':iv, 'ciphertext':ct})
     #print(result)
-    #'{"iv": "bWRHdzkzVDFJbWNBY0EwSmQ1UXFuQT09", "ciphertext": "VDdxQVo3TFFCbXIzcGpYa1lJbFFZQT09"}'
-
-key = b'G+5J#o\xc0\xf6\x8a!\xa5i\xe2>j.fb\xd2\xe5\xdf\xf5\xc7\x96\xb0\x8e7\xf9H7:\xfb'
+# {"iv": "kDbLBbPjWue/nUDLWUZXrg==", "ciphertext": "EitHEbvAvmvcTxnZUuMaq2QUw3BA3DzaYtctvzJNsX0r5vh522YOjuicTVXplHeok6XhMctI/Kd3yyeS0PfAOh9l8ageLxsYgF4jbhP/fpk="}
 
 class Restore_from_db():
     # We assume that the key was securely shared beforehand
@@ -32,7 +34,8 @@ class Restore_from_db():
         ct = b64decode(b64['ciphertext'])
         cipher = AES.new(key, AES.MODE_CBC, iv)
         pt = unpad(cipher.decrypt(ct), AES.block_size)
-        print("The message was: ", pt)
+        retr = pt.decode('utf-8')
+        print(retr)
     except ValueError, KeyError:
         print("Incorrect decryption")
 
