@@ -2,8 +2,8 @@
 
 cat > haproxy/aws-config << EOL
 [default]
-aws_access_key_id = ${aws_access_key_id-haproxy}
-aws_secret_access_key = ${aws_secret_access_key-haproxy}
+aws_access_key_id=${aws_access_key_id-haproxy}
+aws_secret_access_key=${aws_secret_access_key-haproxy}
 EOL
 
 cat > django-site/django-site/.env << EOL
@@ -22,5 +22,3 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER=${EMAIL_HOST_USER}
 EMAIL_HOST_PASSWORD={$EMAIL_HOST_PASSWORD}
 EOL
-
-
