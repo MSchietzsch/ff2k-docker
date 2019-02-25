@@ -1,0 +1,12 @@
+services:
+  - docker
+
+install:
+  - docker build django-site
+  - docker build elasticsearch
+  - docker build haproxy
+  - docker build kibana
+  - docker build logstash
+  - docker build mysql
+  - docker build pgsql
+  
