@@ -1,12 +1,16 @@
 services:
-  - docker
-
+- docker
+before_install:
+    - ./.travis_credentials.sh
 install:
-  - docker build django-site
-  - docker build elasticsearch
-  - docker build haproxy
-  - docker build kibana
-  - docker build logstash
-  - docker build mysql
-  - docker build pgsql
-  
+- docker build django-site
+- docker build elasticsearch
+- docker build haproxy
+- docker build kibana
+- docker build logstash
+- docker build mysql
+- docker build pgsql
+env:
+  global:
+  - secure: rf3qwDUeaIeEJfRwhyJQp0ohs3EqesFvZlfN5O/h8YKO8N8nMYnVKJz3oTudcob9QkaTs3CYPxG1j6qC78tMG5LWIhS7Oc7OdxL/MYqC4cRCcn/tXt8FUk0ThWgLVeH5+NR9G8nR3sFV7hcQCZf3jFfJWpwKwXUy6q2CX47T30+Xgv45WCappa/6w44dD6gGZJewCja8+JVOPExMsD/jyXfI+W1NEcvDif8B1ugiAotpmxaYGQZjoD6L+tBSH1Up6i2WZSn6GTymnpIqUDaZ+6T9Va/LgKioR1rlgWS3BcWmiG0HpPTmCDrbFEGQJKsY8xl+iZ4SzizMrUJAFWLUil1+4g80pR5X76OvNAQXarSBAzth1FLpyFNMeee56CwXciOY2Ep4N1MjJ+LB0IBwXckM3euKUQURt5Vm1FYnRyfccT+Qrtx5c8B/lvVSj9zvKvLgSjf/JfrPc7bAaZ7KZFeunKkQpP859xwVD14eiFpIBs+5AYiloOHRXF5KJFctPSWNd2LMcgjFyY9jZLHhrEzulsdd9BVDCmpzeNcu0OMBPwTbePbfyCJPOhA3E68KezMyjv33IwO7GklLAev2jNoOq0+uJMOaY3lgGaf0CFi1Ek8CKbtTBIGUk3CuaPAUpbgtfjtOiJNvnIKbSF1Jxq5SKfj4LQNAJWMfDdG+yLY=
+  - secure: QC8ZtuAa1RRqEI6FSBiN3seCM/MsuAm6TD9Boz2yDt1NRCn1Lb18F2zkYxdnI0yRgPJu0anoFPQLRO6IsfzszZRPPihh5+33HqFLqt3fQ2aHVYUmDBDOU883ekJfd/wtddU/NWEaF+MuKPcS1vhIstu0IcufA9RG2asM7/bz3qRgq/5I2y3OQFtabXvKPBtLaZcroi/iO/hPq2Tmzl28y5/xi3Ixk+yPOuHySPyfr5F6aAfQkAGajSeBs5KHfgLOj/LuHZi/cUgbRaE69IJpJDSWioXXbHq44fLBFjrvDxFiakW3XWm4kMVN/WumGuZBUS17nVgMqbWnSB5lb5uNDi5jd3fQUYKIQruc6+/pZbpHFjBwhur+nc4kdkkH1RUJHq7yEYBG/PYaw6lq1oYehgEMsX8CzBV1KeA1GRpI78SoGdAfGwUDz1xizsbosBIGUQN3aVpjGV2RBmrJdVV2NhaCc6LnoVyb2FDcalY24u3rWrQFnU9FZkR8ntBQHZIM4/rpdmmAQSostqn0VVjSiahzZ3bJsG5n8AMMK5m5hgrwC+aFytGIudwrMw3mWFDXsWp2fqyXLRsRFIWReMAQC71iw+J7IAar5PRSHpv33ofdTZW/n4vySkHOgxISHP8T9NXMbYv9DNqkeBZabIvqXpEjSysUU/aQDHtzAnlAITU=
