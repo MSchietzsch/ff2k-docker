@@ -1,9 +1,9 @@
 # vim:set ft=dockerfile:
 FROM alpine:3.8
 
-ENV HAPROXY_MAJOR 1.9
-ENV HAPROXY_VERSION 1.9-dev6
-ENV HAPROXY_SHA256 90ce4eab016359151ac3ce35e5eb418f89d9a36f43db19c7e8fdc089707ed4d2
+ENV HAPROXY_MAJOR 2.0
+ENV HAPROXY_VERSION 2.0-dev0
+ENV HAPROXY_SHA256 d49e9bed5df91d436d47089e0ad90593de5d4ae20d7e5d51a2b1f74f909d5206
 
 # use edge version of alpine to use openssl 1.1.1 / TLS 1.3
 #RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories \
