@@ -6,11 +6,10 @@ ENV HAPROXY_VERSION 2.0-dev0
 ENV HAPROXY_SHA256 d49e9bed5df91d436d47089e0ad90593de5d4ae20d7e5d51a2b1f74f909d5206
 
 # use edge version of alpine to use openssl 1.1.1 / TLS 1.3
-#RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories \
-#	&& echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-#	&& apk upgrade --update-cache --available \
-#	&& apk update
-# The above breaks certbot ! 
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories \
+	&& echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+	&& apk upgrade --update-cache --available \
+	&& apk update
 
 # see https://sources.debian.net/src/haproxy/jessie/debian/rules/ for some helpful navigation of the possible "make" arguments
 RUN set -x \
