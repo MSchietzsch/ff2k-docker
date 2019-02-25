@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/MSchietzsch/test-ff2k-docker.svg?branch=master)](https://travis-ci.org/MSchietzsch/test-ff2k-docker)
 # ff2k-docker
 Django based webapp with ELK stack infrastruckture for docker-compose
 
