@@ -3,7 +3,13 @@ services:
 before_install:
 - "./.travis_credentials.sh"
 install:
-- docker-compose build
+- docker build -t ff2khaproxy haproxy
+- docker build -t ff2kdocker_web_master django-site
+- docker build -t pgsql pgsql
+- docker build -t elasticsearch elasticsearch
+- docker build -t kibana kibana
+- docker build -t logstash logstash
+- docker build -t pgsql pgsql
 env:
   global:
   - secure: QBjWeg1f5QV023twAOy8XPiqqBBUWeEU626ci3K8QE1RfWOc+mPo5pW/ZS6uC9W/cOsIGAcGiyAVDupi9cp30jiipHTVRGZi1YOo/BXrl6abTedWoo5Sa/KQ8RCmzFFPyneC/7YMYKz/8C6BeOpfRlgXjK5zeG2Ta1JLgiP4BbPtwE5XpyQmJKtJsOLmWedme/yPNTOUZqv5xFPP2z/wj7/xW+4grtHsxz93q6SNbCBtQywdmGAjaQQsFeRXWqU4cezQo5QiWhLk5uT3zl4pcO7O8fg35zxbUIlit7lmXOl79138r4WUBLhIKy/jWYhTy4SkGzl3dSGEpnuttKnkqrVBxibzFWdINUV21xuV6tJcF/0hgA/BTknnmdPV7Bq70wO/YtDnx9KQbWUIiDghf5Gm26hVBN3qPWsmnOdJbYVbFHw0umDwINLDXhEkuxUgx4XYIuIRchf/zb3V5vNPBdGGoGBjQzoW0iwIs5AYZKKFLgZTk0rkr5zBgmpvhYyrveEVvcpqvP5VQgwdtXeb3rg/BczEJsmvFkwlwMbl5TrjZ6oKZUrZ/Ga5PL6C4+JyHOf80ReDT0FGHYKVRDw9Kk7OOEpVY16oaOv4nDvK/c/0F3r9BecE2Jz7rFnepukeXD2BSZh4/CdvBa6t6tWa08xmTtXi9ZKUpziz11e8Pms=
@@ -15,4 +21,3 @@ env:
   - secure: lYX4B44+IxbT+eRwEeZ72iAbP6rdgGOs+XsOdY/SmTnpUheM9upcVNhl6jv38CHbZtO/E7aKccSyKGuxKJqMF92lTrHtcN+uLqeOBgq7mu85Mpl+ClMSUrk7F2xyaof4yicPVhbLSThc2QUjMsjAGMva2uR86xPjaRAQ+tXscqQANFtPOwOH41N9YpHevvi6+7py/KeEpd4oTVKYMdcx4hreoNOEskP/smab6iQKsJLaRlagf8DzAuCZVu43JS6cS9/tSjJgEd+vQh2CG3gxRLXNRJ35B1M1ObRet9gXiFZAkKwRMHn2VGHs66nR4RSyv5+l9TxKSTJQrSxJZ5Wr+SXWae4NDkVR7KU49URq4kE6/REReYYGdC/Ga+imQcuyUvRP31uzqLgWTTLhfolTOqbEpwsSEX759n9gr1hvcDRuMmaUHbM3tIN7Sv/l7KmBYUbS5d3fkHg0XuhDm6aYy846LcCL4ePWDvVZpAs7Cf7y168WwhBH5tAmM+imQnWN/KsrelutIa5gsX1x59k3ysevrLSqpmUwv/+2lnvcddS0x+aS55fBhADK2QCbduVMAL9/po+8mqIu5Iyznad60l5EgLVKEOYAmk2/jBovAkHL4Bc03w3mSs5aEQAbtiww0yXuOrt8gx1CFQNSoPVRNcFQczCA9s8X9p+n9YsXstE=
 script:
   - docker images
-  - docker-compose up --scale elasticsearch-node=2 --scale web=12 --scale redis=3
